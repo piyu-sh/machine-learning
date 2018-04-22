@@ -16,8 +16,9 @@ p = zeros(m, 1);
 %
 
 
-
-
+hypx = sigmoid(X * theta);
+p(find(hypx >=0.5))=1;
+p(find(hypx<0.5))=0;
 
 
 

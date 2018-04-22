@@ -18,9 +18,16 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+[JPrev,gradPrev] = costFunction(theta, X, y);
 
+regularizationTerm = (lambda/(2*size(X,1)))*sum(theta(2:end,:).^2);
 
+J = JPrev + regularizationTerm;
+gradPrev = gradPrev';
 
+grad(1,1) = gradPrev(1,1);
+
+grad(2:end,:) = gradPrev(2:end,:) + ((lambda/size(X,1))*theta(2:end,:));
 
 % =============================================================
 
