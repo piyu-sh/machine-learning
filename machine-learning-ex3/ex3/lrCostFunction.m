@@ -37,7 +37,20 @@ grad = zeros(size(theta));
 %
 
 
+thetaTX = X * theta;  % m X 1
+hypX = sigmoid(thetaTX);  % m X 1
+JPrev = (1/size(y)(1))*(-y'*(log(hypX)) - ((1-y)'*(log(1-hypX)))); % 1 X 1
+gradPrev = (1 / size(y)(1)) * ((hypX - y)' * X);  % 1 X n
 
+
+regularizationTerm = (lambda/(2*size(X,1)))*sum(theta(2:end,:).^2);
+
+J = JPrev + regularizationTerm;
+gradPrev = gradPrev';
+
+grad(1,1) = gradPrev(1,1);
+
+grad(2:end,:) = gradPrev(2:end,:) + ((lambda/size(X,1))*theta(2:end,:));
 
 
 
